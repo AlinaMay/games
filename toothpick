@@ -1,0 +1,43 @@
+let arr = [3,5,7];
+
+function getUserInput(arrIndex, num) {
+    // arrIndex: 玩家抽取的该容器的索引, num: 玩家抽取的牙签数量
+    const flag = checkData(arrIndex, num);
+    
+    if(flag) {
+        arr[arrIndex] -= num;
+        checkGameOver();
+    } else {
+        getUserInput(arrIndex, num)
+    }
+};
+function checkData(arrIndex, num) {
+    if(arrIndex >= arr.length) {
+        alert('请选择正确的容器抽取牙签');
+        return false;
+    };
+    if(arr[arrIndex]<= 0) {
+        alert('该容器牙签为零,请重新选择');
+        return false;
+    };
+    if(arr[arrIndex]< num) {
+        alert('抽取的牙签数不能大于容器内有的牙签数量,请重新选择');
+        return false;
+    };
+    return true;
+}
+function checkGameOver() {
+    let sum =  0;
+
+    arr.reduce(function(pre, curr) {
+        sum = pre + curr;
+    }); 
+    if(sum == 0) {
+        alert('游戏结束');
+    } else {
+        getUserInput(arrIndex, num)
+        alert('游戏继续');
+    }
+}
+
+ps: 页面上提供两个个输入框, 两个玩家可轮流分别输入抽取牙签的容器索引(例: 0, 1, 2)和抽取的牙签数量(任意正整数), 之后点击抽取按钮执行如上逻辑
